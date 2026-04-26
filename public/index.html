@@ -1256,9 +1256,7 @@
                     const isLocalhost =
                         window.location.hostname === "127.0.0.1" ||
                         window.location.hostname === "localhost";
-                    const apiUrl = isLocalhost
-                        ? "http://127.0.0.1:8000/api/chat"
-                        : "/api/chat";
+                    const apiUrl = "/api/chat";
 
                     const response = await fetch(apiUrl, {
                         method: "POST",
@@ -1309,9 +1307,7 @@
                     const isLocalhost =
                         window.location.hostname === "127.0.0.1" ||
                         window.location.hostname === "localhost";
-                    const healthUrl = isLocalhost
-                        ? "http://127.0.0.1:8000/api/health"
-                        : "/api/health";
+                    const healthUrl = "/api/health";
 
                     const controller = new AbortController();
                     const timeoutId = setTimeout(
