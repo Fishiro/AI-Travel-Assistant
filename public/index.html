@@ -467,7 +467,8 @@
                                     🤖
                                 </div>
                                 <div
-                                    class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"
+                                    id="status-dot"
+                                    class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full transition-colors duration-500"
                                 ></div>
                             </div>
                             <div>
@@ -479,7 +480,8 @@
                                 </h2>
                                 <p
                                     data-i18n="aiStatus"
-                                    class="text-xs text-teal-600 font-semibold"
+                                    id="status-text"
+                                    class="text-xs text-teal-600 font-semibold transition-colors duration-500"
                                 >
                                     Đang online
                                 </p>
@@ -875,6 +877,7 @@
                     adTag: "Tài trợ",
                     aiTitle: "Trợ Lý Ảo AI Du Lịch Cà Mau",
                     aiStatus: "Đang online",
+                    aiStatusOffline: "Mất kết nối",
                     langText: "Ngôn ngữ/Change language",
                     btnReset: "Làm mới",
                     inputPlaceholder: "Hỏi tôi về Cà Mau...",
@@ -904,6 +907,7 @@
                     adTag: "Sponsored",
                     aiTitle: "Ca Mau AI Assistant",
                     aiStatus: "Online",
+                    aiStatusOffline: "Offline",
                     langText: "Ngôn ngữ/Change language",
                     btnReset: "Reset",
                     inputPlaceholder: "Ask me about Ca Mau...",
@@ -1225,17 +1229,30 @@
                 if (indicator) indicator.remove();
             }
 
+            let isSending = false; // Cờ khóa gửi
+
             chatForm.addEventListener("submit", async (e) => {
                 e.preventDefault();
+
+                // Nếu đang gửi thì bỏ qua
+                if (isSending) return;
+
                 const message = userInput.value.trim();
                 if (!message) return;
+
+                // Khóa gửi
+                isSending = true;
+                const sendButton = document.querySelector(
+                    '#chat-form button[type="submit"]',
+                );
+                sendButton.disabled = true;
+                sendButton.classList.add("opacity-50", "cursor-not-allowed");
 
                 appendMessage("user", message);
                 userInput.value = "";
                 showTypingIndicator();
 
                 try {
-                    // TỰ ĐỘNG CHỌN ĐƯỜNG DẪN API DỰA TRÊN MÔI TRƯỜNG (LOCAL HOẶC VERCEL)
                     const isLocalhost =
                         window.location.hostname === "127.0.0.1" ||
                         window.location.hostname === "localhost";
@@ -1256,7 +1273,6 @@
                     hideTypingIndicator();
 
                     if (response.ok) {
-                        // Nhận key 'response' từ FastAPI (Backend)
                         appendMessage("ai", data.response);
                     } else {
                         appendMessage(
@@ -1267,11 +1283,67 @@
                 } catch (error) {
                     hideTypingIndicator();
                     appendMessage("ai", i18n[currentLang].errorConn);
+                } finally {
+                    // Mở khóa sau 2 giây
+                    setTimeout(() => {
+                        isSending = false;
+                        sendButton.disabled = false;
+                        sendButton.classList.remove(
+                            "opacity-50",
+                            "cursor-not-allowed",
+                        );
+                    }, 2000);
                 }
             });
 
             updateGlobalLanguage();
             initChat();
+
+            // === KIỂM TRA TRẠNG THÁI SERVER ĐỊNH KỲ ===
+            const statusDot = document.getElementById("status-dot");
+            const statusText = document.getElementById("status-text");
+
+            async function checkServerStatus() {
+                try {
+                    // Xác định URL health‑check giống như cách phần chat đã làm
+                    const isLocalhost =
+                        window.location.hostname === "127.0.0.1" ||
+                        window.location.hostname === "localhost";
+                    const healthUrl = isLocalhost
+                        ? "http://127.0.0.1:8000/api/health"
+                        : "/api/health";
+
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(
+                        () => controller.abort(),
+                        5000,
+                    );
+                    const res = await fetch(healthUrl, {
+                        signal: controller.signal,
+                    });
+                    clearTimeout(timeoutId);
+
+                    if (res.ok) {
+                        statusDot.classList.remove("bg-red-500");
+                        statusDot.classList.add("bg-green-500");
+                        statusText.textContent = i18n[currentLang].aiStatus;
+                        statusText.classList.remove("text-red-500");
+                        statusText.classList.add("text-teal-600");
+                    } else {
+                        throw new Error("Server trả lời không ổn");
+                    }
+                } catch (err) {
+                    statusDot.classList.remove("bg-green-500");
+                    statusDot.classList.add("bg-red-500");
+                    statusText.textContent = i18n[currentLang].aiStatusOffline;
+                    statusText.classList.remove("text-teal-600");
+                    statusText.classList.add("text-red-500");
+                }
+            }
+
+            // Gọi ngay khi load trang và sau đó mỗi 30 giây
+            checkServerStatus();
+            setInterval(checkServerStatus, 30000);
         </script>
     </body>
 </html>

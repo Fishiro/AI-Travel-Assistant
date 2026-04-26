@@ -1,5 +1,7 @@
 fastapi
 uvicorn
+groq
 python-dotenv
-google-genai
-pydantic
+voyageai
+numpy
+faiss-cpu
