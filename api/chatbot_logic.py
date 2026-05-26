@@ -67,11 +67,25 @@ def get_camau_tour_response(user_message: str, language: str = "vi") -> str:
             short_contexts.append(ctx[:MAX_CONTEXT_CHARS] + "…")
         else:
             short_contexts.append(ctx)
-    context_str = "\n---\n".join(short_contexts) if short_contexts else "Không tìm thấy thông tin liên quan."
+            
+    # Xử lý chuỗi context trống theo ngôn ngữ
+    if not short_contexts:
+        context_str = "Không tìm thấy thông tin liên quan." if language == "vi" else "No relevant information found."
+    else:
+        context_str = "\n---\n".join(short_contexts)
 
     # 3. Tạo prompt hoàn chỉnh
     system_prompt = get_system_prompt(language)
-    user_prompt = f"""Ngữ cảnh tham khảo:
+    
+    # Điều chỉnh User Prompt theo ngôn ngữ
+    if language == "en":
+        user_prompt = f"""Reference context:
+{context_str}
+
+Tourist's question: {user_message}
+Please answer based on the context above."""
+    else:
+        user_prompt = f"""Ngữ cảnh tham khảo:
 {context_str}
 
 Câu hỏi của du khách: {user_message}
