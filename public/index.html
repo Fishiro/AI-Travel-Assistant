@@ -44,53 +44,21 @@
             .btn-primary:hover { background-color: #1e293b; border-color: #1e293b; }
             .btn-secondary { background-color: #ffffff; color: #475569; border: 1px solid #e2e8f0; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
             .btn-secondary:hover { color: #0f172a; border-color: #cbd5e1; }
-            .btn-sponsor { background-color: #fefce8; color: #ca8a04; border: 1px solid #fef08a; }
-            .btn-sponsor:hover { background-color: #fef08a; color: #a16207; }
-
+            
             .chat-bubble-ai { background-color: #ffffff; border: 1px solid #e2e8f0; color: #334155; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02); }
             .chat-bubble-user { background-color: #0f172a; color: #ffffff; box-shadow: 0 2px 4px rgba(15, 23, 42, 0.1); }
 
             #bg-slider { opacity: 0.15; filter: blur(2px) grayscale(40%); }
+            
+            /* CSS cho nút đánh giá */
+            .feedback-btn { color: #94a3b8; transition: all 0.2s; }
+            .feedback-btn:hover { color: #0f172a; transform: scale(1.1); }
+            .feedback-btn.active-like { color: #10b981; }
+            .feedback-btn.active-dislike { color: #ef4444; }
         </style>
     </head>
     <body class="w-screen overflow-x-hidden overflow-y-auto">
-        <!-- ========================================== -->
-        <!-- POPUP QUẢNG CÁO KHI MỚI VÀO TRANG          -->
-        <!-- ========================================== -->
-        <div id="welcome-ad-modal" class="fixed inset-0 z-[150] flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 p-4">
-            <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm cursor-pointer" onclick="closeWelcomeAd()"></div>
-            <div class="bg-white rounded-2xl shadow-2xl z-10 w-[95vw] max-w-5xl md:h-[80vh] max-h-[90vh] transform scale-95 transition-all duration-500 relative flex flex-col md:flex-row overflow-hidden" id="welcome-ad-content">
-                <button onclick="closeWelcomeAd()" class="absolute top-3 right-3 bg-black/20 hover:bg-black/40 text-white md:text-slate-500 md:bg-slate-100 md:hover:bg-slate-200 rounded-full p-2 z-50 transition-colors backdrop-blur-md">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-                <div class="relative w-full md:w-7/12 lg:w-2/3 h-64 md:h-full bg-slate-100 flex items-center justify-center flex-none p-2 md:p-6">
-                    <img src="resource/tuyensinh.jpg" alt="Welcome Ad" class="w-full h-full object-contain drop-shadow-xl" />
-                </div>
-                <div class="w-full md:w-5/12 lg:w-1/3 p-6 md:p-8 bg-white flex flex-col h-full overflow-y-auto">
-                    <div class="mb-auto">
-                        <span class="text-[10px] bg-yellow-500 text-yellow-950 px-2 py-0.5 rounded font-bold uppercase tracking-wider mb-3 inline-block">Tài trợ nổi bật</span>
-                        <h3 class="text-2xl md:text-3xl font-bold font-space leading-tight text-slate-900 mb-4">Trường Cao Đẳng Cộng Đồng Cà Mau</h3>
-                        <p class="text-slate-600 mb-6 text-sm md:text-base leading-relaxed text-justify">Tuyển Sinh 2026 với nhiều ưu đãi học phí. Cam kết giới thiệu việc làm sau khi tốt nghiệp. Môi trường học tập năng động và sáng tạo.</p>
-                        <div class="bg-slate-50 rounded-xl p-4 md:p-5 border border-slate-100 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-lg">📢</span>
-                                <h4 class="text-sm font-bold text-slate-900 font-space">Hợp Tác Quảng Cáo</h4>
-                            </div>
-                            <p class="text-xs text-slate-500 mb-2">Bạn muốn hiển thị thương hiệu của mình tại đây để tiếp cận hàng ngàn du khách?</p>
-                            <p class="text-sm"><strong class="text-slate-800">Liên hệ Zalo:</strong> <a href="tel:0942655776" class="text-teal-600 font-bold hover:underline">0942 655 776</a></p>
-                        </div>
-                    </div>
-                    <div class="flex flex-col gap-3 mt-6">
-                        <a href="https://caodangcongdong.camau.gov.vn/" target="_blank" class="w-full btn-primary hover-subtle py-3 md:py-3.5 rounded-xl font-bold text-sm md:text-base text-center flex items-center justify-center shadow-lg shadow-slate-900/20">Xem chi tiết</a>
-                        <button onclick="closeWelcomeAd()" class="w-full btn-secondary hover-subtle py-3 md:py-3.5 rounded-xl font-bold text-sm md:text-base">Bỏ qua</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========================================== -->
         <!-- QUẢNG CÁO 2 BÊN -->
-        <!-- ========================================== -->
         <div class="fixed left-6 top-1/2 -translate-y-1/2 w-[calc(50vw-35rem)] min-w-[200px] max-w-[320px] hidden 2xl:flex flex-col gap-4 z-40">
             <a href="https://caodangcongdong.camau.gov.vn/" target="_blank" class="block bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden hover-subtle group relative">
                 <div class="absolute top-0 left-0 bg-yellow-500 text-yellow-950 text-[10px] px-3 py-1 font-bold uppercase tracking-wider rounded-br-lg z-10 shadow-sm">Hot</div>
@@ -100,48 +68,21 @@
                     <p class="text-xs text-slate-500 mt-1">Tuyển Sinh 2026 - Đăng ký ngay!</p>
                 </div>
             </a>
-            <a href="#" class="block bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover-subtle group mt-2">
-                <div class="text-[9px] text-center bg-slate-100 text-slate-500 py-1 uppercase tracking-wider font-bold">Tài trợ</div>
-                <img src="resource/tiemtratieuho.jpg" class="w-full h-32 object-cover opacity-90 group-hover:opacity-100 transition-opacity" alt="Tiệm trà tiểu hồ" />
-            </a>
         </div>
 
-        <div class="fixed right-6 top-1/2 -translate-y-1/2 w-[calc(50vw-35rem)] min-w-[160px] max-w-[280px] hidden 2xl:flex flex-col gap-5 z-40">
-            <a href="#" class="block bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover-subtle group">
-                <div class="text-[9px] text-center bg-slate-100 text-slate-500 py-1.5 uppercase tracking-wider font-bold">Tài trợ</div>
-                <img src="resource/nhahanghoangho.jpg" class="w-full h-auto object-contain opacity-90 group-hover:opacity-100 transition-opacity" alt="Nhà hàng Hoàng Hổ" />
-            </a>
-            <a href="#" class="block bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover-subtle group">
-                <div class="text-[9px] text-center bg-slate-100 text-slate-500 py-1.5 uppercase tracking-wider font-bold">Tài trợ</div>
-                <img src="resource/mup.jpg" class="w-full h-32 object-cover opacity-90 group-hover:opacity-100 transition-opacity" alt="Múp" />
-            </a>
-            <div onclick="openModal()" class="bg-white/80 backdrop-blur rounded-xl border border-dashed border-teal-300 p-4 text-center cursor-pointer hover:bg-teal-50 transition-colors shadow-sm group">
-                <div class="w-8 h-8 mx-auto bg-teal-100 text-teal-600 rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
-                </div>
-                <p class="text-xs font-bold text-teal-700 leading-tight">Đặt Quảng Cáo</p>
-            </div>
-        </div>
-
-        <!-- ========================================== -->
         <!-- GIAO DIỆN CHÍNH -->
-        <!-- ========================================== -->
         <div class="flex flex-col h-[100dvh] w-full relative z-30">
             <header class="bg-white/80 backdrop-blur-md border-b border-slate-200/80 py-3 px-5 z-50 flex-none shadow-sm">
                 <div class="max-w-5xl w-full mx-auto flex justify-between items-center gap-4">
                     <h1 class="text-xl md:text-2xl font-bold flex items-center gap-2 text-slate-900 tracking-tight font-space">
                         <span class="text-[1.2em]">🦀</span>
-                        <span data-i18n="headerTitle">Cà Mau AI Tour Guide</span>
+                        <span data-i18n="headerTitle">Cà Mau AI Tour</span>
                     </h1>
                     <nav class="flex items-center gap-3">
                         <button id="info-btn" class="btn-secondary hover-subtle flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                             <span class="hidden sm:inline" data-i18n="btnInfo">Thông tin</span>
                         </button>
-                        <a href="#ad-banner-section" class="btn-sponsor hover-subtle flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" /></svg>
-                            <span class="hidden sm:inline" data-i18n="btnSponsor">Nhà Tài Trợ</span>
-                        </a>
                     </nav>
                 </div>
             </header>
@@ -149,13 +90,14 @@
             <main class="flex-1 max-w-5xl w-full mx-auto p-3 md:p-5 flex flex-col overflow-hidden min-h-0 relative z-10">
                 <section class="bg-white border border-slate-200 flex-1 rounded-xl shadow-sm overflow-hidden flex flex-col relative h-full min-h-0">
                     <div class="bg-white border-b border-slate-100 px-5 py-3 flex items-center justify-between z-20 flex-none flex-wrap gap-3">
+                        
                         <div class="flex items-center gap-3">
                             <div class="relative">
                                 <div class="w-10 h-10 flex items-center justify-center text-lg bg-teal-50 text-teal-700 border border-teal-100 rounded-full">🤖</div>
                                 <div id="status-dot" class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full transition-colors duration-500"></div>
                             </div>
                             <div>
-                                <h2 data-i18n="aiTitle" class="font-bold text-slate-900 text-base font-space">Hướng dẫn viên ảo du lịch Cà Mau</h2>
+                                <h2 data-i18n="aiTitle" class="font-bold text-slate-900 text-base font-space">Hướng dẫn viên ảo Cà Mau</h2>
                                 <p data-i18n="aiStatus" id="status-text" class="text-xs text-teal-600 font-semibold transition-colors duration-500">Đang online</p>
                             </div>
                         </div>
@@ -163,7 +105,6 @@
                         <div class="flex items-center gap-2">
                             <button id="lang-btn" class="btn-secondary hover-subtle flex items-center gap-1.5 px-3 py-2 text-sm font-bold rounded-lg" title="Ngôn ngữ/Change language">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                <span class="hidden sm:inline" data-i18n="langText">Ngôn ngữ</span>
                                 <span class="sm:hidden" id="lang-short">VI/EN</span>
                             </button>
                             <button id="reset-btn" class="btn-secondary hover-subtle flex items-center gap-1.5 px-3 py-2 text-sm font-bold rounded-lg text-red-500 hover:text-red-600">
@@ -188,217 +129,133 @@
                     </div>
                 </section>
             </main>
-
-            <footer class="bg-white border-t border-slate-200 py-3 px-5 z-50 flex-none text-xs text-slate-500">
-                <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3">
-                    <div class="flex items-center gap-2 font-bold text-slate-900 font-space">
-                        <span class="text-sm">🦀</span>
-                        <span data-i18n="ftTitle1">Cà Mau AI Tour Guide</span>
-                    </div>
-                    <div class="flex flex-wrap justify-center gap-x-4 gap-y-2">
-                        <a href="https://caodangcongdong.camau.gov.vn/" target="_blank" class="hover:text-slate-900 transition-colors" data-i18n="ftLink1">Trang chủ CMCC</a>
-                        <span class="hidden md:inline text-slate-300">|</span>
-                        <a href="https://dtcaodangcongdong.camau.gov.vn/" target="_blank" class="hover:text-slate-900 transition-colors" data-i18n="ftLink2">Đào Tạo</a>
-                        <span class="hidden md:inline text-slate-300">|</span>
-                        <button onclick="openModal(); return false;" class="font-bold underline hover:text-teal-600 transition-colors" data-i18n="ftLink3">Liên hệ dự án</button>
-                    </div>
-                    <div data-i18n="ftCopyright">&copy; 2026 Nguyễn Dư Quí.</div>
-                </div>
-            </footer>
         </div>
 
-        <!-- ========================================== -->
-        <!-- QUẢNG CÁO ẨN PHÍA DƯỚI -->
-        <!-- ========================================== -->
-        <div id="ad-banner-section" class="w-full bg-slate-100 border-t border-slate-200 py-12 px-4 flex-none shadow-inner relative z-30">
-            <div class="max-w-4xl mx-auto">
-                <div class="text-center mb-6">
-                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest font-space" data-i18n="ftTitle3">Tài Trợ & Quảng Cáo</h3>
-                </div>
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col md:flex-row relative group transition-all duration-300 hover:shadow-md">
-                    <div class="md:w-5/12 h-64 md:h-auto relative overflow-hidden bg-slate-100 flex items-center justify-center flex-none">
-                        <img id="ad-img" src="resource/tuyensinh.jpg" alt="Quảng cáo" class="w-full h-full object-cover fade-transition" />
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent md:hidden z-0"></div>
-                        <h3 id="ad-title-mobile" class="absolute bottom-4 left-4 right-4 text-xl font-bold text-white leading-tight z-10 fade-transition font-space md:hidden">Trường CĐ Cộng Đồng Cà Mau</h3>
-                        <button id="ad-prev" class="absolute left-3 top-1/2 -translate-y-1/2 p-2 bg-black/20 hover:bg-black/40 text-white rounded-full backdrop-blur opacity-0 group-hover:opacity-100 z-20 transition-all duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
-                        </button>
-                        <button id="ad-next" class="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-black/20 hover:bg-black/40 text-white rounded-full backdrop-blur opacity-0 group-hover:opacity-100 z-20 transition-all duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
-                        </button>
-                    </div>
-                    <div class="p-6 md:p-8 md:w-7/12 flex flex-col justify-center relative bg-white">
-                        <div class="absolute top-4 right-4 text-[10px] px-2.5 py-1 uppercase font-bold tracking-wider z-10 bg-slate-100 text-slate-600 rounded-md" data-i18n="adTag">Tài trợ</div>
-                        <h3 id="ad-title" class="text-2xl font-bold text-slate-900 mb-3 fade-transition font-space hidden md:block">Trường CĐ Cộng Đồng Cà Mau</h3>
-                        <p id="ad-desc" class="text-slate-600 text-base leading-relaxed fade-transition mb-6 flex-1">Tuyển sinh 2026. Môi trường học tập năng động, học phí hợp lý, cam kết giới thiệu việc làm sau tốt nghiệp cho sinh viên.</p>
-                        <button id="ad-btn" class="btn-primary hover-subtle w-full md:w-auto px-6 py-3 text-base font-bold rounded-xl flex justify-center items-center gap-2 fade-transition self-start">Xem Tuyển Sinh</button>
-                        <div class="flex justify-center md:justify-start gap-2 mt-8 flex-none cursor-pointer" id="ad-indicators"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- MODAL ĐÁNH GIÁ (FEEDBACK) -->
+        <div id="feedback-modal" class="fixed inset-0 z-[200] flex items-center justify-center hidden opacity-0 transition-opacity duration-300 p-4">
+            <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm cursor-pointer" onclick="closeFeedbackModal()"></div>
+            <div class="bg-white rounded-2xl shadow-2xl z-10 w-full max-w-lg transform scale-95 transition-all duration-300 relative flex flex-col overflow-hidden" id="feedback-content">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-slate-900 font-space mb-2" id="feedback-title" data-i18n="fbTitle">Đánh giá câu trả lời</h3>
+                    <p class="text-sm text-slate-500 mb-4" data-i18n="fbDesc">Ý kiến của bạn sẽ giúp AI của chúng tôi phục vụ du khách tốt hơn.</p>
+                    
+                    <textarea id="feedback-text" rows="4" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent resize-none mb-4" placeholder="Nhập góp ý của bạn (không bắt buộc)..."></textarea>
+                    
+                    <label class="flex items-start gap-3 cursor-pointer group mb-6">
+                        <div class="relative flex items-center justify-center mt-0.5">
+                            <input type="checkbox" id="feedback-consent" checked class="peer sr-only" />
+                            <div class="w-5 h-5 border-2 border-slate-300 rounded peer-checked:bg-teal-500 peer-checked:border-teal-500 transition-colors"></div>
+                            <svg class="absolute w-3 h-3 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                        </div>
+                        <span class="text-sm text-slate-600 select-none group-hover:text-slate-900 transition-colors" data-i18n="fbConsent">Tôi đồng ý gửi dữ liệu ẩn danh (gồm câu hỏi và câu trả lời này) về máy chủ để cải thiện chất lượng dự án.</span>
+                    </label>
 
-        <!-- MODAL THÔNG TIN DỰ ÁN -->
-        <div id="info-modal" class="fixed inset-0 z-[100] flex items-center justify-center hidden opacity-0 transition-opacity duration-300 p-4">
-            <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm cursor-pointer" id="modal-backdrop"></div>
-            <div class="bg-white rounded-2xl shadow-xl z-10 max-w-md w-full transform scale-95 transition-all duration-300 relative flex flex-col max-h-[85vh]" id="modal-content">
-                <div class="p-6 md:p-8 overflow-y-auto flex-1 custom-scrollbar">
-                    <div class="mb-6 border-b border-slate-100 pb-4">
-                        <h3 class="text-2xl font-bold text-slate-900 font-space" data-i18n="mdTitle">Dự Án Phi Lợi Nhuận</h3>
-                        <p class="text-teal-600 font-medium mt-1" data-i18n="mdSubtitle">Cà Mau AI Tour Guide</p>
+                    <div class="flex gap-3">
+                        <button onclick="closeFeedbackModal()" class="flex-1 btn-secondary hover-subtle py-2.5 rounded-xl font-bold text-sm" data-i18n="fbCancel">Hủy bỏ</button>
+                        <button onclick="submitFeedback()" class="flex-1 btn-primary hover-subtle py-2.5 rounded-xl font-bold text-sm bg-teal-600 border-teal-600 hover:bg-teal-700 hover:border-teal-700" id="btn-submit-fb" data-i18n="fbSubmit">Gửi Đánh Giá</button>
                     </div>
-                    <div class="space-y-4 text-slate-600 bg-slate-50 p-5 rounded-xl border border-slate-100 text-sm">
-                        <p><strong class="text-slate-900" data-i18n="mdDev">Nhà phát triển:</strong> <span data-i18n="mdDevName">Nguyễn Dư Quí</span></p>
-                        <p><strong class="text-slate-900" data-i18n="mdID">Mã SV:</strong> CK2402A33</p>
-                        <p><strong class="text-slate-900">Email:</strong> <a href="mailto:nguyenduquicm1@gmail.com" class="text-teal-600 font-semibold hover:underline">nguyenduquicm1@gmail.com</a></p>
-                        <p><strong class="text-slate-900" data-i18n="mdPhone">Zalo/ĐT:</strong> <a href="tel:0942655776" class="text-teal-600 font-semibold hover:underline">0942655776</a></p>
-                    </div>
-                    <p class="text-slate-500 text-sm mt-6 leading-relaxed text-justify" data-i18n="mdDesc">Dự án hoàn toàn phi lợi nhuận. Rất mong nhận được sự tài trợ để duy trì API và máy chủ phục vụ du lịch tỉnh nhà.</p>
-                    <button id="close-modal-btn" class="btn-primary hover-subtle w-full mt-8 px-4 py-3 rounded-xl font-bold flex-none" data-i18n="mdClose">Đóng thông báo</button>
                 </div>
             </div>
         </div>
 
         <script>
-            const welcomeAdModal = document.getElementById("welcome-ad-modal");
-            const welcomeAdContent = document.getElementById("welcome-ad-content");
-            function openWelcomeAd() { welcomeAdModal.classList.remove("opacity-0", "pointer-events-none"); welcomeAdContent.classList.remove("scale-95"); welcomeAdContent.classList.add("scale-100"); }
-            function closeWelcomeAd() { welcomeAdModal.classList.add("opacity-0", "pointer-events-none"); welcomeAdContent.classList.remove("scale-100"); welcomeAdContent.classList.add("scale-95"); }
-            window.addEventListener("DOMContentLoaded", () => { setTimeout(() => openWelcomeAd(), 1000); });
-
+            // Đa ngôn ngữ
             const i18n = {
                 vi: {
-                    headerTitle: "Cà Mau AI Tour Guide", btnInfo: "Thông tin", btnSponsor: "Nhà Tài Trợ", adTag: "Tài trợ",
+                    headerTitle: "Cà Mau AI Tour Guide", btnInfo: "Thông tin",
                     aiTitle: "Trợ Lý Ảo AI Du Lịch Cà Mau", aiStatus: "Đang online", aiStatusOffline: "Mất kết nối",
-                    langText: "Ngôn ngữ/Change language", btnReset: "Làm mới", inputPlaceholder: "Hỏi tôi về Cà Mau...",
-                    ftTitle1: "Cà Mau AI Tour Guide", ftLink1: "Trang chủ CMCC", ftLink2: "Đào Tạo", ftTitle3: "Tài Trợ & Quảng Cáo",
-                    ftLink3: "Liên hệ dự án", ftCopyright: "&copy; 2026 Nguyễn Dư Quí.", mdTitle: "Dự Án Phi Lợi Nhuận",
-                    mdSubtitle: "Cà Mau AI Tour Guide", mdDev: "Nhà phát triển:", mdDevName: "Nguyễn Dư Quí",
-                    mdID: "Mã SV:", mdPhone: "Zalo/ĐT:", mdDesc: "Dự án hoàn toàn phi lợi nhuận. Rất mong nhận được sự tài trợ để duy trì API và máy chủ phục vụ du lịch tỉnh nhà.",
-                    mdClose: "Đóng thông báo", chatGreeting: "Dạ em chào anh/chị ạ! Em là Trợ lý AI Du lịch Cà Mau. Anh/chị cần hỏi thông tin gì về du lịch Cà Mau không?",
-                    errorConn: "⚠️ Lỗi kết nối! Hệ thống đang gặp sự cố mạng.", errorBusy: "Xin lỗi, máy chủ đang bận: "
+                    btnReset: "Làm mới", inputPlaceholder: "Hỏi tôi về Cà Mau...",
+                    chatGreeting: "Dạ em chào anh/chị ạ! Em là Trợ lý AI Du lịch Cà Mau. Anh/chị cần hỏi thông tin gì không?",
+                    errorConn: "⚠️ Lỗi kết nối! Hệ thống đang gặp sự cố mạng.", errorBusy: "Xin lỗi, máy chủ đang bận: ",
+                    fbTitle: "Đánh giá câu trả lời", fbDesc: "Ý kiến của bạn sẽ giúp AI của chúng tôi phục vụ du khách tốt hơn.",
+                    fbConsent: "Tôi đồng ý gửi dữ liệu ẩn danh (gồm câu hỏi và câu trả lời này) về máy chủ để cải thiện chất lượng dự án.",
+                    fbCancel: "Hủy bỏ", fbSubmit: "Gửi Đánh Giá", fbThanks: "Cảm ơn bạn đã đánh giá!"
                 },
                 en: {
-                    headerTitle: "Ca Mau AI Explorer", btnInfo: "About Us", btnSponsor: "Sponsor Us", adTag: "Sponsored",
+                    headerTitle: "Ca Mau AI Explorer", btnInfo: "About Us",
                     aiTitle: "Ca Mau AI Assistant", aiStatus: "Online", aiStatusOffline: "Offline",
-                    langText: "Ngôn ngữ/Change language", btnReset: "Reset", inputPlaceholder: "Ask me about Ca Mau...",
-                    ftTitle1: "Ca Mau AI Explorer", ftLink1: "CMCC Homepage", ftLink2: "Admissions", ftTitle3: "Sponsorship & Ads",
-                    ftLink3: "Contact Us", ftCopyright: "&copy; 2026 Nguyen Du Qui.", mdTitle: "Non-profit Project",
-                    mdSubtitle: "Ca Mau AI Explorer", mdDev: "Developer:", mdDevName: "Nguyễn Dư Quí",
-                    mdID: "Student ID:", mdPhone: "Phone/Zalo:", mdDesc: "This is a 100% non-profit project. We welcome sponsorships to maintain the API and servers serving local tourism.",
-                    mdClose: "Close", chatGreeting: "Hello! I'm your Ca Mau AI Assistant. Do you have any questions about your trip to Mui Ca Mau?",
-                    errorConn: "⚠️ Connection error! Please try again later.", errorBusy: "Sorry, the server is busy: "
+                    btnReset: "Reset", inputPlaceholder: "Ask me about Ca Mau...",
+                    chatGreeting: "Hello! I'm your Ca Mau AI Assistant. Do you have any questions?",
+                    errorConn: "⚠️ Connection error! Please try again later.", errorBusy: "Sorry, the server is busy: ",
+                    fbTitle: "Rate this response", fbDesc: "Your feedback helps our AI serve tourists better.",
+                    fbConsent: "I consent to sending anonymous data (this Q&A) to the server to improve the project.",
+                    fbCancel: "Cancel", fbSubmit: "Submit Feedback", fbThanks: "Thank you for your feedback!"
                 }
             };
 
             let currentLang = "vi";
+            // Lưu trữ lịch sử chat tạm thời để map với nút feedback
+            let chatHistoryMap = {}; 
+            // Lưu trạng thái feedback đang xử lý
+            let currentFeedbackContext = null;
+
             function updateGlobalLanguage() {
                 document.querySelectorAll("[data-i18n]").forEach((el) => {
                     const key = el.getAttribute("data-i18n");
                     if (i18n[currentLang][key]) el.innerHTML = i18n[currentLang][key];
                 });
                 document.getElementById("user-input").placeholder = i18n[currentLang].inputPlaceholder;
-                renderCurrentAd(false);
             }
 
-            const infoBtn = document.getElementById("info-btn");
-            const infoModal = document.getElementById("info-modal");
-            const closeModalBtn = document.getElementById("close-modal-btn");
-            const modalBackdrop = document.getElementById("modal-backdrop");
-            const modalContent = document.getElementById("modal-content");
-            function openModal() {
-                infoModal.classList.remove("hidden");
-                setTimeout(() => { infoModal.classList.remove("opacity-0"); modalContent.classList.remove("scale-95"); modalContent.classList.add("scale-100"); }, 10);
+            const chatForm = document.getElementById("chat-form"); 
+            const userInput = document.getElementById("user-input"); 
+            const chatBox = document.getElementById("chat-box");
+            const langBtn = document.getElementById("lang-btn"); 
+            const resetBtn = document.getElementById("reset-btn");
+
+            // Tạo ID ngẫu nhiên cho mỗi tin nhắn AI
+            function generateId() { return Math.random().toString(36).substr(2, 9); }
+
+            function initChat() { 
+                chatBox.innerHTML = ""; 
+                chatHistoryMap = {};
+                appendMessage("ai", i18n[currentLang].chatGreeting, null); 
             }
-            function closeModal() {
-                infoModal.classList.add("opacity-0"); modalContent.classList.remove("scale-100"); modalContent.classList.add("scale-95");
-                setTimeout(() => infoModal.classList.add("hidden"), 300);
-            }
-            if (infoBtn) infoBtn.addEventListener("click", openModal);
-            if (closeModalBtn) closeModalBtn.addEventListener("click", closeModal);
-            if (modalBackdrop) modalBackdrop.addEventListener("click", closeModal);
-
-            const adsData = [
-                { img: "resource/tuyensinh.jpg", link: "https://caodangcongdong.camau.gov.vn/", vi: { title: "Trường CĐ Cộng Đồng Cà Mau", desc: "Tuyển sinh 2026. Môi trường năng động, học phí hợp lý.", btnText: "Xem Tuyển Sinh" }, en: { title: "Ca Mau Community College", desc: "2026 Admissions. Dynamic environment, reasonable tuition.", btnText: "View Admissions" } },
-                { img: "resource/mup.jpg", link: "#", vi: { title: "#Múp Food & Drink", desc: "Không gian siêu chill, đồ uống cực đã.", btnText: "Đến Ngay" }, en: { title: "#Múp Food & Drink", desc: "Super chill space, amazing drinks.", btnText: "Come Now" } },
-                { img: "resource/banhbaohihao.jpg", link: "#", vi: { title: "#Bánh Bao Hỉ Hảo", desc: "Thưởng thức vị bánh bao kết hợp giữa truyền thống và hiện đại.", btnText: "Mua Ngay" }, en: { title: "#Hỉ Hảo Steamed Buns", desc: "Enjoy the blend of traditional and modern flavors.", btnText: "Buy Now" } },
-                { img: "resource/nhahanghoangho.jpg", link: "#", vi: { title: "#Nhà Hàng Hoàng Hổ", desc: "Điểm đến ẩm thực nổi bật với hương vị đậm đà.", btnText: "Đến Ngay" }, en: { title: "#Hoàng Hổ Restaurant", desc: "A standout culinary destination with rich flavors.", btnText: "Come Now" } },
-                { img: "resource/tiemtratieuho.jpg", link: "#", vi: { title: "#Tiệm Trà Tiểu Hồ", desc: "Trà sữa thơm ngon, không gian ấm cúng.", btnText: "Đến Ngay" }, en: { title: "#Tiểu Hồ Tea Shop", desc: "Delicious bubble tea and cozy atmosphere.", btnText: "Come Now" } }
-            ];
-
-            let currentAdIndex = 0; let adTimer;
-            const adImg = document.getElementById("ad-img"); const adTitle = document.getElementById("ad-title"); const adTitleMobile = document.getElementById("ad-title-mobile");
-            const adDesc = document.getElementById("ad-desc"); const adBtn = document.getElementById("ad-btn"); const adIndicators = document.getElementById("ad-indicators");
-
-            adsData.forEach((_, index) => {
-                const dot = document.createElement("div");
-                dot.className = `w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${index === 0 ? "bg-slate-800 w-4" : "bg-slate-300"}`;
-                dot.addEventListener("click", () => changeAd(index)); adIndicators.appendChild(dot);
-            });
-
-            adBtn.addEventListener("click", () => {
-                const currentLink = adsData[currentAdIndex].link;
-                if (currentLink !== "#") window.open(currentLink, "_blank"); else openModal();
-            });
-
-            function renderCurrentAd(animate = true) {
-                const data = adsData[currentAdIndex]; const langData = data[currentLang];
-                if (animate) {
-                    [adImg, adTitle, adTitleMobile, adDesc, adBtn].forEach((el) => { if (el) el.style.opacity = 0; });
-                    setTimeout(() => applyAdData(data, langData), 300);
-                } else { applyAdData(data, langData); }
-            }
-
-            function applyAdData(data, langData) {
-                if (adImg) adImg.src = data.img; if (adTitle) adTitle.innerText = langData.title; if (adTitleMobile) adTitleMobile.innerText = langData.title;
-                if (adDesc) adDesc.innerText = langData.desc; if (adBtn) adBtn.innerText = langData.btnText;
-                Array.from(adIndicators.children).forEach((dot, i) => { dot.className = `w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${i === currentAdIndex ? "bg-slate-800 w-4" : "bg-slate-300"}`; });
-                [adImg, adTitle, adTitleMobile, adDesc, adBtn].forEach((el) => { if (el) el.style.opacity = 1; });
-            }
-
-            function changeAd(dir) {
-                if (typeof dir === "number") currentAdIndex = dir;
-                else if (dir === "next") currentAdIndex = (currentAdIndex + 1) % adsData.length;
-                else if (dir === "prev") currentAdIndex = (currentAdIndex - 1 + adsData.length) % adsData.length;
-                renderCurrentAd(); resetAdTimer();
-            }
-
-            function resetAdTimer() { clearInterval(adTimer); adTimer = setInterval(() => changeAd("next"), 6000); }
-            document.getElementById("ad-prev").addEventListener("click", () => changeAd("prev")); document.getElementById("ad-next").addEventListener("click", () => changeAd("next")); resetAdTimer();
-
-            const sceneryImages = ["resource/muicamau1.jpg", "resource/muicamau2.jpg", "resource/muicamau3.jpg"];
-            let currentSceneryIndex = 0; const bgSlider = document.getElementById("bg-slider");
-            sceneryImages.forEach((src) => { const img = new Image(); img.src = src; });
-            setInterval(() => {
-                bgSlider.style.opacity = "0";
-                setTimeout(() => {
-                    currentSceneryIndex = (currentSceneryIndex + 1) % sceneryImages.length;
-                    bgSlider.style.backgroundImage = `url('${sceneryImages[currentSceneryIndex]}')`;
-                    bgSlider.style.opacity = "0.15";
-                }, 1000);
-            }, 8000);
-
-            const chatForm = document.getElementById("chat-form"); const userInput = document.getElementById("user-input"); const chatBox = document.getElementById("chat-box");
-            const langBtn = document.getElementById("lang-btn"); const resetBtn = document.getElementById("reset-btn");
-
-            function initChat() { chatBox.innerHTML = ""; appendMessage("ai", i18n[currentLang].chatGreeting); }
+            
             langBtn.addEventListener("click", () => { currentLang = currentLang === "vi" ? "en" : "vi"; updateGlobalLanguage(); initChat(); });
             resetBtn.addEventListener("click", initChat);
 
             function escapeHTML(str) { return str.replace(/[&<>'"]/g, (tag) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[tag] || tag); }
 
-            function appendMessage(sender, text) {
+            // Thêm tham số msgId và userMsg để xử lý feedback
+            function appendMessage(sender, text, userMsgText = null) {
                 const isUser = sender === "user";
                 const formattedText = isUser ? escapeHTML(text) : marked.parse(text);
+                const msgId = isUser ? null : generateId();
+                
+                // Lưu vào map nếu là tin nhắn AI
+                if (!isUser && userMsgText) {
+                    chatHistoryMap[msgId] = { user: userMsgText, ai: text };
+                }
+
                 const messageDiv = document.createElement("div");
                 messageDiv.className = `flex gap-4 ${isUser ? "flex-row-reverse" : ""} animate-[fadeIn_0.3s_ease-out]`;
-                messageDiv.innerHTML = `
+                
+                let innerHTML = `
                 <div class="w-10 h-10 flex-shrink-0 flex items-center justify-center text-sm font-bold rounded-full ${isUser ? "bg-slate-200 text-slate-800" : "bg-teal-50 text-teal-700 border border-teal-100"}">
                     ${isUser ? "U" : "🤖"}
                 </div>
-                <div class="px-5 py-3.5 rounded-2xl text-base leading-relaxed ${isUser ? "chat-bubble-user rounded-tr-sm" : "chat-bubble-ai rounded-tl-sm markdown-body"}">
-                    ${formattedText}
-                </div>`;
+                <div class="flex flex-col gap-1 max-w-[85%]">
+                    <div class="px-5 py-3.5 rounded-2xl text-base leading-relaxed ${isUser ? "chat-bubble-user rounded-tr-sm" : "chat-bubble-ai rounded-tl-sm markdown-body"}">
+                        ${formattedText}
+                    </div>`;
+
+                // CHỈ THÊM NÚT LIKE/DISLIKE CHO AI (Trừ câu chào ban đầu)
+                if (!isUser && userMsgText) {
+                    innerHTML += `
+                    <div class="flex items-center gap-2 px-2 mt-1">
+                        <button onclick="openFeedbackModal('${msgId}', true)" class="feedback-btn p-1" title="Thích">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.514" /></svg>
+                        </button>
+                        <button onclick="openFeedbackModal('${msgId}', false)" class="feedback-btn p-1" title="Không thích">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.714.211-1.412.608-2.006L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.514" /></svg>
+                        </button>
+                        <span id="fb-msg-${msgId}" class="text-[11px] text-teal-600 font-medium ml-2 hidden animate-[fadeIn_0.3s_ease-out]">${i18n[currentLang].fbThanks}</span>
+                    </div>`;
+                }
+
+                innerHTML += `</div>`;
+                messageDiv.innerHTML = innerHTML;
                 chatBox.appendChild(messageDiv); chatBox.scrollTop = chatBox.scrollHeight;
             }
 
@@ -409,10 +266,11 @@
                 <div class="chat-bubble-ai px-5 py-4 rounded-2xl rounded-tl-sm flex items-center gap-1.5 typing-indicator"><span></span><span></span><span></span></div>`;
                 chatBox.appendChild(indicatorDiv); chatBox.scrollTop = chatBox.scrollHeight;
             }
-
             function hideTypingIndicator() { const indicator = document.getElementById("typing-indicator"); if (indicator) indicator.remove(); }
 
             let isSending = false;
+            let lastUserMessage = ""; // Biến lưu tạm câu hỏi user
+
             chatForm.addEventListener("submit", async (e) => {
                 e.preventDefault();
                 if (isSending) return;
@@ -422,53 +280,95 @@
                 const sendButton = document.querySelector('#chat-form button[type="submit"]');
                 sendButton.disabled = true; sendButton.classList.add("opacity-50", "cursor-not-allowed");
 
+                lastUserMessage = message;
                 appendMessage("user", message); userInput.value = ""; showTypingIndicator();
 
                 try {
-                    // API trỏ thẳng về Backend Ubuntu của bạn
                     const apiUrl = "https://api.huongdanvienaocamau.io.vn/api/chat";
-                    
                     const response = await fetch(apiUrl, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ message: message, language: currentLang })
                     });
                     const data = await response.json(); hideTypingIndicator();
-                    if (response.ok) { appendMessage("ai", data.response); } 
+                    if (response.ok) { 
+                        // Truyền câu hỏi của user vào để map ID phục vụ đánh giá
+                        appendMessage("ai", data.response, lastUserMessage); 
+                    } 
                     else { appendMessage("ai", i18n[currentLang].errorBusy + (data.error || "")); }
                 } catch (error) {
                     hideTypingIndicator(); appendMessage("ai", i18n[currentLang].errorConn);
                 } finally {
-                    setTimeout(() => { isSending = false; sendButton.disabled = false; sendButton.classList.remove("opacity-50", "cursor-not-allowed"); }, 2000);
+                    setTimeout(() => { isSending = false; sendButton.disabled = false; sendButton.classList.remove("opacity-50", "cursor-not-allowed"); }, 500);
                 }
             });
 
-            updateGlobalLanguage(); initChat();
+            // ==========================================
+            // XỬ LÝ LOGIC MODAL ĐÁNH GIÁ (FEEDBACK)
+            // ==========================================
+            const fbModal = document.getElementById("feedback-modal");
+            const fbContent = document.getElementById("feedback-content");
+            const fbTextarea = document.getElementById("feedback-text");
+            
+            function openFeedbackModal(msgId, isLike) {
+                currentFeedbackContext = { msgId, isLike };
+                fbTextarea.value = ""; // Reset textarea
+                fbModal.classList.remove("hidden");
+                setTimeout(() => { 
+                    fbModal.classList.remove("opacity-0"); 
+                    fbContent.classList.remove("scale-95"); 
+                    fbContent.classList.add("scale-100"); 
+                }, 10);
+            }
 
-            // === KIỂM TRA TRẠNG THÁI SERVER ===
-            const statusDot = document.getElementById("status-dot"); const statusText = document.getElementById("status-text");
-            async function checkServerStatus() {
+            function closeFeedbackModal() {
+                fbModal.classList.add("opacity-0"); 
+                fbContent.classList.remove("scale-100"); 
+                fbContent.classList.add("scale-95");
+                setTimeout(() => { fbModal.classList.add("hidden"); currentFeedbackContext = null; }, 300);
+            }
+
+            async function submitFeedback() {
+                if (!currentFeedbackContext) return;
+                
+                const { msgId, isLike } = currentFeedbackContext;
+                const chatData = chatHistoryMap[msgId];
+                const consentGiven = document.getElementById("feedback-consent").checked;
+                const feedbackText = fbTextarea.value.trim();
+                
+                const btnSubmit = document.getElementById("btn-submit-fb");
+                btnSubmit.disabled = true;
+                btnSubmit.innerHTML = "Đang gửi...";
+
                 try {
-                    // URL kiểm tra sức khỏe của Backend
-                    const healthUrl = "https://api.huongdanvienaocamau.io.vn/api/health";
-                    
-                    const controller = new AbortController();
-                    const timeoutId = setTimeout(() => controller.abort(), 5000);
-                    const res = await fetch(healthUrl, { signal: controller.signal }); clearTimeout(timeoutId);
+                    // API gửi Feedback
+                    const apiUrl = "https://api.huongdanvienaocamau.io.vn/api/feedback";
+                    await fetch(apiUrl, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ 
+                            user_message: chatData.user,
+                            ai_response: chatData.ai,
+                            is_like: isLike,
+                            feedback_text: feedbackText,
+                            consent_given: consentGiven
+                        })
+                    });
 
-                    if (res.ok) {
-                        statusDot.classList.remove("bg-red-500"); statusDot.classList.add("bg-green-500");
-                        statusText.textContent = i18n[currentLang].aiStatus;
-                        statusText.classList.remove("text-red-500"); statusText.classList.add("text-teal-600");
-                    } else { throw new Error("Server error"); }
-                } catch (err) {
-                    statusDot.classList.remove("bg-green-500"); statusDot.classList.add("bg-red-500");
-                    statusText.textContent = i18n[currentLang].aiStatusOffline;
-                    statusText.classList.remove("text-teal-600"); statusText.classList.add("text-red-500");
+                    // Hiển thị lời cảm ơn ngay dưới bong bóng chat
+                    const thxMsg = document.getElementById(`fb-msg-${msgId}`);
+                    if(thxMsg) thxMsg.classList.remove("hidden");
+
+                } catch (error) {
+                    console.error("Lỗi gửi feedback:", error);
+                } finally {
+                    btnSubmit.disabled = false;
+                    btnSubmit.innerHTML = i18n[currentLang].fbSubmit;
+                    closeFeedbackModal();
                 }
             }
 
-            checkServerStatus(); setInterval(checkServerStatus, 30000);
+            updateGlobalLanguage(); initChat();
         </script>
     </body>
 </html>
